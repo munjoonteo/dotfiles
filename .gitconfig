@@ -1,0 +1,37 @@
+[user]
+	name = Mun Joon Teo
+	email = teomunjoon101@gmail.com
+[color]
+	ui = auto 
+[color "branch"]
+	current = yellow bold
+	local = green bold
+	remote = cyan bold
+[color "status"]
+	added = green bold
+	changed = red bold
+	deleted = red bold
+	untracked = yellow bold
+[alias]
+	a = add
+	br = branch
+	c = commit
+	com = commit -m
+	comamend = commit --amend --no-edit
+	cl = clone
+	f = fetch
+	chk = checkout
+	newb = checkout -b
+	pl = pull
+	plom = pull origin master
+	ps = push
+	st = status
+	log = log --oneline
+[format]
+	pretty = oneline
+[core]
+	editor = vim
+[advice]
+	addEmptyPathspec = false
+[pull]
+	rebase = false
