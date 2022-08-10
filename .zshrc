@@ -35,6 +35,7 @@ alias lsl="exa --long --all --icons --group-directories-first"
 alias lst="exa --tree --long --icons --group-directories-first"
 alias lsg="exa --git --long --icons --group-directories-first"
 
+alias c="cd ~/Code"
 alias ntgl="cd ~/Code/csesoc/notangles"
 alias tt="cd ~/Code/csesoc/timetable-scraper"
 alias chess="cd ~/Code/chessbot"
