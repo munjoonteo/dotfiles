@@ -19,11 +19,10 @@ Plug 'preservim/nerdcommenter'
 Plug 'preservim/nerdtree'
 Plug 'psf/black'
 Plug 'Raimondi/delimitMate'
+Plug 'ryanoasis/vim-devicons'
 Plug 'Quramy/tsuquyomi/'
 Plug 'vim-airline/vim-airline'
 Plug 'Yggdroot/indentLine'
-
-Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
 
@@ -99,7 +98,7 @@ nmap Q <Nop>
 map <C-a> <Nop>
 map <C-x> <Nop>
 
-"Searching
+" Searching (/)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set incsearch           " search as characters are entered
 set hlsearch            " highlight matches
@@ -108,14 +107,15 @@ set smartcase           " But make it case sensitive if an uppercase is entered
 " Ignore files for completion
 set wildignore+=*/.git/*,*/tmp/*,*.swp
 
-" Undo
+" Undo (u)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set undofile " Maintain undo history between sessions
 set undodir=~/.vim/undodir
 
-" Folding
+" Folding (zo/zc to open and close folds)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set foldenable          " enable folding
+set foldmethod=syntax   " default fold method
 set foldlevelstart=10   " open most folds by default
 set foldnestmax=10      " 10 nested fold max
 
@@ -129,7 +129,7 @@ inoremap <C-b> <Esc> :NERDTreeToggle<CR>
 nnoremap <C-b> :NERDTreeToggle<CR>
 nnoremap <C-f> :NERDTreeFind<CR>
 
-" move vertically by visual line
+" Move vertically by visual line
 nnoremap j gj
 nnoremap k gk
 
@@ -137,7 +137,7 @@ nnoremap k gk
 map H ^
 map L $
 
-"split navigations
+" Split navigations
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
@@ -194,7 +194,7 @@ inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
-" GoTo code navigation.
+" GoTo code navigation (Ctrl-O to return)
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
@@ -217,10 +217,6 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
 
-" Formatting selected code.
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
-
 augroup mygroup
   autocmd!
   " Setup formatexpr specified filetype(s).
@@ -229,40 +225,10 @@ augroup mygroup
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 
-" Applying codeAction to the selected region.
-" Example: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
-
-" Remap keys for applying codeAction to the current buffer.
-nmap <leader>ac  <Plug>(coc-codeaction)
-" Apply AutoFix to problem on the current line.
-nmap <leader>qf  <Plug>(coc-fix-current)
-
-" Run the Code Lens action on the current line.
-nmap <leader>cl  <Plug>(coc-codelens-action)
-
-" Map function and class text objects
-" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
-xmap if <Plug>(coc-funcobj-i)
-omap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap af <Plug>(coc-funcobj-a)
-xmap ic <Plug>(coc-classobj-i)
-omap ic <Plug>(coc-classobj-i)
-xmap ac <Plug>(coc-classobj-a)
-omap ac <Plug>(coc-classobj-a)
-
-" Use CTRL-S for selections ranges.
+" Use Ctrl-S for selecting a range of lines e.g. an entire if block
 " Requires 'textDocument/selectionRange' support of language server.
 nmap <silent> <C-s> <Plug>(coc-range-select)
 xmap <silent> <C-s> <Plug>(coc-range-select)
-
-" Add `:Format` command to format current buffer.
-command! -nargs=0 Format :call CocActionAsync('format')
-
-" Add `:Fold` command to fold current buffer.
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
 " Add `:OR` command for organize imports of the current buffer.
 command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')
