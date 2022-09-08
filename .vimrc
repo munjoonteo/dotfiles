@@ -18,9 +18,10 @@ Plug 'pangloss/vim-javascript'
 Plug 'preservim/nerdcommenter'
 Plug 'preservim/nerdtree'
 Plug 'psf/black'
+Plug 'Quramy/tsuquyomi/'
 Plug 'Raimondi/delimitMate'
 Plug 'ryanoasis/vim-devicons'
-Plug 'Quramy/tsuquyomi/'
+Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'Yggdroot/indentLine'
 
@@ -83,6 +84,7 @@ let g:indentLine_char_list = ['|', '¦', '┆', '┊'] " Have a different charac
 let g:NERDCompactSexyComs = 1 " Use compact syntax for prettified multi-line comments
 let g:NERDCommentEmptyLines = 1 " Allow commenting of empty lines
 let g:NERDSpaceDelims = 1 " Add space after commenting
+let g:NERDTreeShowHidden = 1 " Show hidden files 
 let g:NERDTrimTrailingWhitespace = 1 " Trim trailing whitespace after uncommenting
 
 " Buffers
