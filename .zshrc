@@ -1,6 +1,5 @@
 # Fig pre block. Keep at the top of this file.
-[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && . "$HOME/.fig/shell/zshrc.pre.zsh"
-
+[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -36,10 +35,9 @@ alias lst="exa --tree --long --icons --group-directories-first"
 alias lsg="exa --git --long --icons --group-directories-first"
 
 alias c="cd ~/Code"
-alias ntgl="cd ~/Code/csesoc/notangles"
-alias tt="cd ~/Code/csesoc/timetable-scraper"
 alias chess="cd ~/Code/chessbot"
-alias thesis="cd ~/Code/optosleep-backend"
+alias nvim="~/nvim-macos/bin/nvim"
+alias nvimconf="nvim ~/.config/nvim/init.lua"
 
 # Helper functions
 mkcd()
@@ -72,5 +70,4 @@ if [ -f '/Users/munjoonteo/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/munj
 if [ -f '/Users/munjoonteo/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/munjoonteo/google-cloud-sdk/completion.zsh.inc'; fi
 
 # Fig post block. Keep at the bottom of this file.
-[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && . "$HOME/.fig/shell/zshrc.post.zsh"
-
+[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
