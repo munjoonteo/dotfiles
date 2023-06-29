@@ -1,15 +1,19 @@
--- Install packer
+--- Install packer                                                                                                                                                                                         [473/526]
 local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
-local is_bootstrap = false
-if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-  is_bootstrap = true
+local is_bootstrap = false                                                                     
+if vim.fn.empty(vim.fn.glob(install_path)) > 0 then                                                      
+  is_bootstrap = true                                                                                    
   vim.fn.system { 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path }
-  vim.cmd [[packadd packer.nvim]]
-end
-
-require('packer').startup(function(use)
-  -- Package manager
-  use 'wbthomason/packer.nvim'
+end                                                                                                              
+                                                                                                          
+require('packer').startup(function(use)                                                                         
+  -- Package manager                                                                                                      
+  use 'wbthomason/packer.nvim'                                                    
+                                                                                        
+  use {                                                                                            
+    'j-hui/fidget.nvim',                                                                                   
+    tag = 'legacy'                                                                                      
+  }                                                            
 
   use { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
@@ -43,15 +47,17 @@ require('packer').startup(function(use)
     after = 'nvim-treesitter',
   }
 
-  use 'tpope/vim-fugitive'
-  use 'tpope/vim-rhubarb'
-  use 'tpope/vim-endwise'
-  use 'tpope/vim-sleuth'
-  use 'jiangmiao/auto-pairs'
-  use 'lewis6991/gitsigns.nvim'
-  use 'lukas-reineke/indent-blankline.nvim'
+  use 'tpope/vim-fugitive' -- git shortcuts
+  use 'tpope/vim-rhubarb' -- GitHub shortcuts
+  use 'tpope/vim-sleuth' -- Automatically set tab width etc.
+  use 'tpope/vim-surround' -- Deal with quotes/brackets/parenthesies better
+  use 'apzelos/blamer.nvim' -- git blame                                                                                                                                                                           
+  use 'gbprod/cutlass.nvim' -- Change d to delete and add cut functionality                                                                                                                                        
+  use 'jiangmiao/auto-pairs' -- Automatically close brackets, quotes etc.
+  use 'lewis6991/gitsigns.nvim' -- Show which lines were changed/added/deleted in a buffer
+  use 'lukas-reineke/indent-blankline.nvim' -- Show indentation for all lines
   use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
-  use 'nvim-lualine/lualine.nvim'
+  use 'nvim-lualine/lualine.nvim' -- Configure status line
   use 'rebelot/kanagawa.nvim'
 
   -- Fuzzy Finder (files, lsp, etc)
@@ -62,6 +68,12 @@ require('packer').startup(function(use)
   use "nvim-telescope/telescope-file-browser.nvim"
 
   use { 'akinsho/bufferline.nvim', tag = "v3.*", requires = 'nvim-tree/nvim-web-devicons' }
+
+  -- Session Manager
+  use {
+    'jedrzejboczar/possession.nvim',
+    requires = { 'nvim-lua/plenary.nvim' },
+  }
 
   -- Add custom plugins to packer from ~/.config/nvim/lua/custom/plugins.lua
   local has_plugins, plugins = pcall(require, 'custom.plugins')
@@ -87,8 +99,8 @@ if is_bootstrap then
   return
 end
 
--- Automatically source and re-compile packer whenever you save this init.lua
-local packer_group = vim.api.nvim_create_augroup('Packer', { clear = true })
+-- Automatically source and re-compile packer whenever you save this init.lua                                                                                                                                      
+local packer_group = vim.api.nvim_create_augroup('Packer', { clear = true })                                                                                                                                       
 vim.api.nvim_create_autocmd('BufWritePost', {
   command = 'source <afile> | silent! LspStop | silent! LspStart | PackerCompile',
   group = packer_group,
@@ -124,7 +136,9 @@ vim.wo.signcolumn = 'yes'
 
 -- Set colorscheme
 vim.o.termguicolors = true
-vim.cmd [[colorscheme kanagawa]]
+vim.cmd("colorscheme kanagawa")
+
+vim.g.blamer_enabled = true
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
@@ -136,7 +150,7 @@ vim.o.completeopt = 'menuone,noselect'
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
--- Keymaps for better default experience
+-- Keymaps for better default experience                                                                                                                                                                  [321/526]
 -- See `:help vim.keymap.set()`
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
@@ -169,15 +183,22 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
 })
 
+-- Automatically reload files if they change on disk
+vim.o.autoread = true
+vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "CursorHoldI", "FocusGained" }, {
+  command = "if mode() != 'c' | checktime | endif",
+  pattern = { "*" },
+})
+
 -- Set lualine as statusline
 -- See `:help lualine.txt`
 require('lualine').setup {
   options = {
     icons_enabled = false,
-    theme = 'onedark',
+    theme = 'kanagawa',
     component_separators = '|',
     section_separators = '',
-  },
+  }
 }
 
 -- Enable Comment.nvim
@@ -340,8 +361,7 @@ local on_attach = function(_, bufnr)
   nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
   -- See `:help K` for why this keymap
-  nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
-  nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+  nmap('D', vim.lsp.buf.hover, 'Hover Documentation')
 
   -- Lesser used LSP functionality
   nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
@@ -357,20 +377,37 @@ local on_attach = function(_, bufnr)
   end, { desc = 'Format current buffer with LSP' })
 end
 
--- Enable the following language servers
+--  Enable the following language servers
 --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
 --
 --  Add any additional override configuration in the following tables. They will be passed to
 --  the `settings` field of the server config. You must look up that documentation yourself.
 local servers = {
   clangd = {},
-  pyright = {},
+  jedi_language_server = {},
   rust_analyzer = {},
-  tsserver = {},
-  sumneko_lua = {
+  marksman = {},
+  lua_ls = {
     Lua = {
-      workspace = { checkThirdParty = false },
-      telemetry = { enable = false },
+      runtime = {
+          -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+          version = "LuaJIT",
+          -- Setup your lua path
+          path = "~/lua-5.4.4",
+      },
+      diagnostics = {
+          -- Get the language server to recognize the `vim` global
+          globals = { "vim" },
+      },
+      workspace = {
+          -- Make the server aware of Neovim runtime files
+          library = vim.api.nvim_get_runtime_file('', true),
+          checkThirdParty = false,
+      },
+      -- Do not send telemetry data containing a randomized but unique identifier
+      telemetry = {
+          enable = false,
+      },
     },
   },
 }
@@ -448,7 +485,23 @@ cmp.setup {
   },
 }
 
-require('bufferline').setup{}
+require('bufferline').setup {
+  options = {
+    separator_style = 'slant',
+    diagnostics = 'nvim_lsp'
+  }
+}
+
+require('cutlass').setup { cut_key = 'x' }
+
+require('possession').setup {
+  commands = {
+    save = 'SSave',
+    load = 'SLoad',
+    delete = 'SDelete',
+    list = 'SList',
+    }
+}
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

@@ -26,8 +26,17 @@
 	pl = pull
 	plom = pull origin master
 	ps = push
+	psf = push --force
+    pso = push --set-upstream origin
+	r = rebase
+    ri = rebase -i
+    ri2 = rebase -i HEAD~2
+    rc = rebase --continue
+    ra = rebase --abort
+    sh = stash
+    sp = stash pop
 	st = status
-	log = log --oneline
+	lg = log --oneline
 [format]
 	pretty = oneline
 [core]
@@ -35,4 +44,6 @@
 [advice]
 	addEmptyPathspec = false
 [pull]
-	rebase = false
+	rebase = true
+[credential]
+	helper = cache --timeout 604800
