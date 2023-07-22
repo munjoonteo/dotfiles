@@ -1,19 +1,19 @@
---- Install packer                                                                                                                                                                                         [473/526]
+--- Install packer
 local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
-local is_bootstrap = false                                                                     
-if vim.fn.empty(vim.fn.glob(install_path)) > 0 then                                                      
-  is_bootstrap = true                                                                                    
+local is_bootstrap = false
+if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+  is_bootstrap = true
   vim.fn.system { 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path }
-end                                                                                                              
-                                                                                                          
-require('packer').startup(function(use)                                                                         
-  -- Package manager                                                                                                      
-  use 'wbthomason/packer.nvim'                                                    
-                                                                                        
-  use {                                                                                            
-    'j-hui/fidget.nvim',                                                                                   
-    tag = 'legacy'                                                                                      
-  }                                                            
+end
+
+require('packer').startup(function(use)
+  -- Package manager
+  use 'wbthomason/packer.nvim'
+
+  use {
+    'j-hui/fidget.nvim',
+    tag = 'legacy'
+  }
 
   use { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
@@ -51,8 +51,8 @@ require('packer').startup(function(use)
   use 'tpope/vim-rhubarb' -- GitHub shortcuts
   use 'tpope/vim-sleuth' -- Automatically set tab width etc.
   use 'tpope/vim-surround' -- Deal with quotes/brackets/parenthesies better
-  use 'apzelos/blamer.nvim' -- git blame                                                                                                                                                                           
-  use 'gbprod/cutlass.nvim' -- Change d to delete and add cut functionality                                                                                                                                        
+  use 'apzelos/blamer.nvim' -- git blame
+  use 'gbprod/cutlass.nvim' -- Change d to delete and add cut functionality
   use 'jiangmiao/auto-pairs' -- Automatically close brackets, quotes etc.
   use 'lewis6991/gitsigns.nvim' -- Show which lines were changed/added/deleted in a buffer
   use 'lukas-reineke/indent-blankline.nvim' -- Show indentation for all lines
@@ -99,8 +99,8 @@ if is_bootstrap then
   return
 end
 
--- Automatically source and re-compile packer whenever you save this init.lua                                                                                                                                      
-local packer_group = vim.api.nvim_create_augroup('Packer', { clear = true })                                                                                                                                       
+-- Automatically source and re-compile packer whenever you save this init.lua
+local packer_group = vim.api.nvim_create_augroup('Packer', { clear = true })
 vim.api.nvim_create_autocmd('BufWritePost', {
   command = 'source <afile> | silent! LspStop | silent! LspStart | PackerCompile',
   group = packer_group,

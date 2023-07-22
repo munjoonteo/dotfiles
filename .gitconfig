@@ -18,7 +18,7 @@
 	c = commit
 	com = commit -m
 	comamend = commit --amend --no-edit
-    amendmsg = commit --amend
+	amendmsg = commit --amend
 	cl = clone
 	f = fetch
 	chk = checkout
@@ -27,14 +27,14 @@
 	plom = pull origin master
 	ps = push
 	psf = push --force
-    pso = push --set-upstream origin
+	pso = push --set-upstream origin
 	r = rebase
-    ri = rebase -i
-    ri2 = rebase -i HEAD~2
-    rc = rebase --continue
-    ra = rebase --abort
-    sh = stash
-    sp = stash pop
+	ri = rebase -i
+    	ri2 = rebase -i HEAD~2
+    	rc = rebase --continue
+    	ra = rebase --abort
+    	sh = stash
+    	sp = stash pop
 	st = status
 	lg = log --oneline
 [format]
