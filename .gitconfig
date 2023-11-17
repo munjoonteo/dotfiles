@@ -30,20 +30,19 @@
 	pso = push --set-upstream origin
 	r = rebase
 	ri = rebase -i
-    	ri2 = rebase -i HEAD~2
-    	rc = rebase --continue
-    	ra = rebase --abort
-    	sh = stash
-    	sp = stash pop
+	ri2 = rebase -i HEAD~2
+	rc = rebase --continue
+	ra = rebase --abort
+	sh = stash
+	sp = stash pop
 	st = status
 	lg = log --oneline
-[format]
-	pretty = oneline
 [core]
 	editor = vim
-[advice]
-	addEmptyPathspec = false
+[format]
+	pretty = oneline
+[diff]
+	wsErrorHighlight = all
 [pull]
 	rebase = true
-[credential]
-	helper = cache --timeout 604800
+

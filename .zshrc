@@ -30,15 +30,14 @@ ENABLE_CORRECTION="true"
 
 # Aliases
 alias ls="exa --icons --across --group-directories-first"
-alias lsl="exa --long --all --icons --group-directories-first"
-alias lst="exa --tree --long --icons --group-directories-first"
-alias lsg="exa --git --long --icons --group-directories-first"
+alias ll="exa --long --all --icons --group-directories-first"
+alias lt="exa --tree --long --icons --group-directories-first"
+alias lg="exa --git --long --icons --group-directories-first"
 
 alias pn="pnpm"
 
 alias c="cd ~/Code"
 alias chess="cd ~/Code/chessbot"
-alias nvim="~/nvim-macos/bin/nvim"
 alias nvimconf="nvim ~/.config/nvim/init.lua"
 
 # Helper functions

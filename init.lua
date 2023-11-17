@@ -1,4 +1,4 @@
---- Install packer
+-- Install packer
 local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
 local is_bootstrap = false
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
@@ -150,7 +150,7 @@ vim.o.completeopt = 'menuone,noselect'
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
--- Keymaps for better default experience                                                                                                                                                                  [321/526]
+-- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
@@ -171,6 +171,11 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { noremap = false })
 -- Remap for tab navigation
 vim.keymap.set('n', '<leader>h', 'gT')
 vim.keymap.set('n', '<leader>l', 'gt')
+
+-- Remap for copying to system clipboard
+vim.keymap.set('v', '<leader>y', '"*y')
+vim.keymap.set('n', '<leader>y', '"*y')
+vim.keymap.set('n', '<leader>d', '"*d')
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
@@ -206,9 +211,8 @@ require('Comment').setup()
 
 -- Enable `lukas-reineke/indent-blankline.nvim`
 -- See `:help indent_blankline.txt`
-require('indent_blankline').setup {
-  char = '┊',
-  show_trailing_blankline_indent = false,
+require("ibl").setup {
+  indent = { char = '┊' }
 }
 
 -- Gitsigns
@@ -236,8 +240,11 @@ require('telescope').setup {
   },
   extensions = {
     file_browser = {
+      grouped = true,
+      hidden = { file_browser = true },
       -- disables netrw and use telescope-file-browser in its place
       hijack_netrw = true,
+      initial_mode = "normal",
     },
   },
 }
@@ -266,10 +273,10 @@ vim.keymap.set('n', '<leader>fb', require "telescope".extensions.file_browser.fi
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
+---@diagnostic disable-next-line: missing-fields 
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'lua', 'python', 'rust', 'typescript', 'help' },
-
+  ensure_installed = { 'c', 'cpp', 'python', 'typescript', 'rust', 'lua' },
   highlight = { enable = true },
   indent = { enable = true, disable = { 'python' } },
   incremental_selection = {
@@ -335,7 +342,7 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
 
 -- LSP settings.
 --  This function gets run when an LSP connects to a particular buffer.
-local on_attach = function(_, bufnr)
+local on_attach = function(client, bufnr)
   -- NOTE: Remember that lua is a real programming language, and as such it is possible
   -- to define small helper and utility functions so you don't have to repeat yourself
   -- many times.
@@ -361,7 +368,7 @@ local on_attach = function(_, bufnr)
   nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
   -- See `:help K` for why this keymap
-  nmap('D', vim.lsp.buf.hover, 'Hover Documentation')
+  nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
 
   -- Lesser used LSP functionality
   nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
@@ -377,16 +384,17 @@ local on_attach = function(_, bufnr)
   end, { desc = 'Format current buffer with LSP' })
 end
 
---  Enable the following language servers
+-- Enable the following language servers
 --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
 --
 --  Add any additional override configuration in the following tables. They will be passed to
 --  the `settings` field of the server config. You must look up that documentation yourself.
 local servers = {
   clangd = {},
-  jedi_language_server = {},
-  rust_analyzer = {},
   marksman = {},
+  pyright = {},
+  rust_analyzer = {},
+  tsserver = {}, 
   lua_ls = {
     Lua = {
       runtime = {
@@ -485,7 +493,9 @@ cmp.setup {
   },
 }
 
+---@diagnostic disable-next-line: missing-fields 
 require('bufferline').setup {
+  ---@diagnostic disable-next-line: missing-fields 
   options = {
     separator_style = 'slant',
     diagnostics = 'nvim_lsp'
