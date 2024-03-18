@@ -19,24 +19,31 @@
 	com = commit -m
 	comamend = commit --amend --no-edit
 	amendmsg = commit --amend
+	cnv = commit --no-verify
+	comnv = commit --no-verify -m
+	comamendnv = commit --amend --no-edit --no-verify
+	amendmsgnv = commit --amend --no-verify
 	cl = clone
 	f = fetch
 	chk = checkout
 	newb = checkout -b
+	lg = log --oneline
 	pl = pull
 	plom = pull origin master
 	ps = push
 	psf = push --force
-	pso = push --set-upstream origin
+	psuo = push --set-upstream origin
 	r = rebase
 	ri = rebase -i
 	ri2 = rebase -i HEAD~2
+	ri3 = rebase -i HEAD~3
+	ri4 = rebase -i HEAD~4
 	rc = rebase --continue
 	ra = rebase --abort
+	shd = show HEAD
 	sh = stash
 	sp = stash pop
 	st = status
-	lg = log --oneline
 [core]
 	editor = vim
 [format]

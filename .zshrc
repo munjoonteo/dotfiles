@@ -1,5 +1,3 @@
-# Fig pre block. Keep at the top of this file.
-[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -29,16 +27,17 @@ ENABLE_CORRECTION="true"
 # DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # Aliases
-alias ls="exa --icons --across --group-directories-first"
-alias ll="exa --long --all --icons --group-directories-first"
-alias lt="exa --tree --long --icons --group-directories-first"
-alias lg="exa --git --long --icons --group-directories-first"
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
 
+alias soz='source ~/.zshrc'
+
+alias gityeet='git a . && git comamend && git psf'
 alias pn="pnpm"
 
 alias c="cd ~/Code"
 alias chess="cd ~/Code/chessbot"
-alias nvimconf="nvim ~/.config/nvim/init.lua"
 
 # Helper functions
 mkcd()
@@ -46,6 +45,9 @@ mkcd()
     mkdir -p -- "$1" &&
        cd -P -- "$1"
 }
+
+# Setup brew (M1 Mac)
+eval $(/opt/homebrew/bin/brew shellenv)
 
 # Colours (Normal)
 # Black - 000000
@@ -74,6 +76,3 @@ if [ -f '/Users/munjoonteo/google-cloud-sdk/completion.zsh.inc' ]; then . '/User
 export PNPM_HOME="/Users/munjoonteo/Library/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 # pnpm end
-
-# Fig post block. Keep at the bottom of this file.
-[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"

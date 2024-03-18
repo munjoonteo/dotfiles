@@ -2,12 +2,12 @@
 
 dotfiles_dir=~/dotfiles
 
-sudo rm -rf ~/.zshrc > /dev/null 2>&1
-sudo rm -rf ~/.vimrc > /dev/null 2>&1
-sudo rm -rf ~/.gitconfig > /dev/null 2>&1
-sudo rm -rf ~/.p10k.zsh > /dev/null 2>&1
-sudo rm -rf ~/.config/nvim > /dev/null 2>&1
-sudo rm -rf ~/.tmux.conf > /dev/null 2>&1
+rm -rf ~/.zshrc > /dev/null 2>&1
+rm -rf ~/.vimrc > /dev/null 2>&1
+rm -rf ~/.gitconfig > /dev/null 2>&1
+rm -rf ~/.p10k.zsh > /dev/null 2>&1
+rm -rf ~/.config/nvim > /dev/null 2>&1
+rm -rf ~/.tmux.conf > /dev/null 2>&1
 
 mkdir -p ~/.config/nvim
 

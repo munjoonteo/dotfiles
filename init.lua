@@ -110,6 +110,9 @@ vim.api.nvim_create_autocmd('BufWritePost', {
 -- [[ Setting options ]]
 -- See `:help vim.o`
 
+-- Enable system clipboard
+vim.o.clipboard = "unnamedplus"
+
 -- Set highlight on search
 vim.o.hlsearch = false
 
@@ -167,6 +170,13 @@ vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { noremap = false })
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { noremap = false })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { noremap = false })
 vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { noremap = false })
+
+-- Remap for select all
+vim.keymap.set('n', '<C-a>', 'gg<S-v>G')
+
+-- Remap for splitting buffers
+vim.keymap.set('n', 'ss', ':sp<Return>')
+vim.keymap.set('n', 'sv', ':vsp<Return>')
 
 -- Remap for tab navigation
 vim.keymap.set('n', '<leader>h', 'gT')
@@ -391,10 +401,14 @@ end
 --  the `settings` field of the server config. You must look up that documentation yourself.
 local servers = {
   clangd = {},
+  docker_compose_language_service = {},
+  dockerls = {},
+  jsonls = {},
   marksman = {},
   pyright = {},
   rust_analyzer = {},
-  tsserver = {}, 
+  tsserver = {},
+  yamlls = {},
   lua_ls = {
     Lua = {
       runtime = {
