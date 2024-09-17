@@ -12,27 +12,32 @@
 	changed = red bold
 	deleted = red bold
 	untracked = yellow bold
+[advice]
+	skippedCherryPicks = false
 [alias]
 	a = add
 	br = branch
-	c = commit
 	com = commit -m
-	comamend = commit --amend --no-edit
-	amendmsg = commit --amend
-	cnv = commit --no-verify
 	comnv = commit --no-verify -m
+	comsign = commit -S -m
+	comamend = commit --amend --no-edit
 	comamendnv = commit --amend --no-edit --no-verify
+	amendmsg = commit --amend
+	amenddate= commit --amend --reset-author
 	amendmsgnv = commit --amend --no-verify
-	cl = clone
-	f = fetch
 	chk = checkout
-	newb = checkout -b
+	cl = clone
+	cp = cherry-pick
+	cpc = cherry-pick --continue
+	cpa = cherry-pick --abort
+	f = fetch
 	lg = log --oneline
+	newb = switch -c
 	pl = pull
 	plom = pull origin master
 	ps = push
 	psf = push --force
-	psuo = push --set-upstream origin
+	psuo = push -u origin
 	r = rebase
 	ri = rebase -i
 	ri2 = rebase -i HEAD~2
@@ -40,10 +45,12 @@
 	ri4 = rebase -i HEAD~4
 	rc = rebase --continue
 	ra = rebase --abort
-	shd = show HEAD
+	shed = show HEAD
 	sh = stash
+	sd = stash drop
 	sp = stash pop
 	st = status
+	sw = switch
 [core]
 	editor = vim
 [format]
