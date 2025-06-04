@@ -12,8 +12,6 @@
 	changed = red bold
 	deleted = red bold
 	untracked = yellow bold
-[advice]
-	skippedCherryPicks = false
 [alias]
 	a = add
 	br = branch
@@ -25,12 +23,13 @@
 	amendmsg = commit --amend
 	amenddate= commit --amend --reset-author
 	amendmsgnv = commit --amend --no-verify
-	chk = checkout
 	cl = clone
 	cp = cherry-pick
 	cpc = cherry-pick --continue
 	cpa = cherry-pick --abort
 	f = fetch
+	fp = fetch --prune
+	chk = checkout
 	lg = log --oneline
 	newb = switch -c
 	pl = pull
@@ -43,6 +42,8 @@
 	ri2 = rebase -i HEAD~2
 	ri3 = rebase -i HEAD~3
 	ri4 = rebase -i HEAD~4
+	ri5 = rebase -i HEAD~5
+	ri6 = rebase -i HEAD~6
 	rc = rebase --continue
 	ra = rebase --abort
 	shed = show HEAD
@@ -51,12 +52,17 @@
 	sp = stash pop
 	st = status
 	sw = switch
+[advice]
+	skippedCherryPicks = false
+[commit]
+	gpgsign = true
 [core]
 	editor = vim
+[credential]
+	helper = store
 [format]
 	pretty = oneline
-[diff]
-	wsErrorHighlight = all
+[init]
+	defaultBranch = master
 [pull]
 	rebase = true
-

@@ -58,6 +58,7 @@ require('packer').startup(function(use)
   use 'lukas-reineke/indent-blankline.nvim' -- Show indentation for all lines
   use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
   use 'nvim-lualine/lualine.nvim' -- Configure status line
+  use 'roxma/vim-tmux-clipboard' -- Copy to tmux clipboard
   use 'rebelot/kanagawa.nvim'
 
   -- Fuzzy Finder (files, lsp, etc)
@@ -428,7 +429,6 @@ local servers = {
   dockerls = {},
   marksman = {},
   jsonls = {},
-  yamlls = {},
 }
 
 -- Setup neovim lua configuration
@@ -526,4 +526,3 @@ require('possession').setup {
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
-
