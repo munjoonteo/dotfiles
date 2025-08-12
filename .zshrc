@@ -32,12 +32,19 @@ alias la='ls -A'
 alias l='ls -CF'
 
 alias soz='source ~/.zshrc'
+alias sshc='nvim ~/.ssh/config'
 
-alias gityeet='git a . && git comamend && git psf'
+alias k="kubectl"
+alias kx="kubectx"
+alias kns="kubens"
+
 alias pn="pnpm"
+alias y="yarn"
 
 alias c="cd ~/Code"
-alias chess="cd ~/Code/chessbot"
+alias s="cd ~/Code/sdio"
+
+alias gityeet='git a . && git comamend && git psf'
 
 # Helper functions
 mkcd()
@@ -49,6 +56,8 @@ mkcd()
 # Setup brew (M1 Mac)
 eval $(/opt/homebrew/bin/brew shellenv)
 
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
 # Colours (Normal)
 # Black - 000000
 # Red - A6002E
@@ -59,12 +68,16 @@ eval $(/opt/homebrew/bin/brew shellenv)
 # Cyan - 8799FF
 # White - BFBFBF
 
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+source <(fzf --zsh) # This sets up fzf key bindings and fuzzy completion
+
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+[[ $commands[kubectl] ]] && source <(kubectl completion zsh) # This enables shell command completion for kubectl
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/munjoonteo/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/munjoonteo/google-cloud-sdk/path.zsh.inc'; fi
