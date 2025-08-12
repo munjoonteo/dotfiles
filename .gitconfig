@@ -33,7 +33,7 @@
 	lg = log --oneline
 	newb = switch -c
 	pl = pull
-	plom = pull origin master
+	plom = pull origin main
 	ps = push
 	psf = push --force
 	psuo = push -u origin
@@ -46,6 +46,8 @@
 	ri6 = rebase -i HEAD~6
 	rc = rebase --continue
 	ra = rebase --abort
+	rs = restore
+	rst = restore --staged
 	shed = show HEAD
 	sh = stash
 	sd = stash drop
@@ -63,6 +65,6 @@
 [format]
 	pretty = oneline
 [init]
-	defaultBranch = master
+	defaultBranch = main
 [pull]
 	rebase = true

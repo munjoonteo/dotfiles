@@ -66,7 +66,28 @@ require('packer').startup(function(use)
 
   use { -- Session Manager
     'jedrzejboczar/possession.nvim',
-    requires = { 'nvim-lua/plenary.nvim' },
+    requires = 'nvim-lua/plenary.nvim',
+  }
+
+  use { -- AI Tools
+    'yetone/avante.nvim',
+    build = "make BUILD_FROM_SOURCE=true",
+    lazy = false,
+    version = false,
+    BUILD_FROM_SOURCE = true,
+    config = function()
+      require("avante_lib").load()
+      require("avante").setup()
+    end,
+    requires = {
+      'nvim-lua/plenary.nvim',
+      'MunifTanjim/nui.nvim',
+      'MeanderingProgrammer/render-markdown.nvim',
+      'hrsh7th/nvim-cmp',
+      'nvim-tree/nvim-web-devicons',
+      'HakonHarnes/img-clip.nvim',
+      'folke/snacks.nvim',
+    }
   }
 
   use 'tpope/vim-fugitive' -- Git shortcuts
@@ -80,7 +101,6 @@ require('packer').startup(function(use)
   use 'lukas-reineke/indent-blankline.nvim' -- Show indentation for all lines
   use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
   use 'nvim-lualine/lualine.nvim' -- Configure status line
-  use 'roxma/vim-tmux-clipboard' -- Copy to tmux clipboard
   use 'rebelot/kanagawa.nvim'
 
   -- Add custom plugins to packer from ~/.config/nvim/lua/custom/plugins.lua
@@ -372,6 +392,16 @@ nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
 nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
 nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
 
+-- Setup neovim lua configuration
+require('neodev').setup()
+
+-- nvim-cmp supports additional completion capabilities, so broadcast that to servers
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+
+-- Setup mason so it can manage external tooling
+require('mason').setup()
+
 -- Enable the following language servers
 --  Feel free to add/remove any LSPs that you want here. They will automatically be installed
 --
@@ -410,16 +440,6 @@ local servers = {
   marksman = {},
   jsonls = {},
 }
-
--- Setup neovim lua configuration
-require('neodev').setup()
-
--- nvim-cmp supports additional completion capabilities, so broadcast that to servers
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-
--- Setup mason so it can manage external tooling
-require('mason').setup()
 
 -- Ensure the servers above are installed
 require ('mason-lspconfig').setup {
