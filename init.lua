@@ -69,27 +69,6 @@ require('packer').startup(function(use)
     requires = 'nvim-lua/plenary.nvim',
   }
 
-  use { -- AI Tools
-    'yetone/avante.nvim',
-    build = "make BUILD_FROM_SOURCE=true",
-    lazy = false,
-    version = false,
-    BUILD_FROM_SOURCE = true,
-    config = function()
-      require("avante_lib").load()
-      require("avante").setup()
-    end,
-    requires = {
-      'nvim-lua/plenary.nvim',
-      'MunifTanjim/nui.nvim',
-      'MeanderingProgrammer/render-markdown.nvim',
-      'hrsh7th/nvim-cmp',
-      'nvim-tree/nvim-web-devicons',
-      'HakonHarnes/img-clip.nvim',
-      'folke/snacks.nvim',
-    }
-  }
-
   use 'tpope/vim-fugitive' -- Git shortcuts
   use 'tpope/vim-rhubarb' -- GitHub shortcuts
   use 'tpope/vim-sleuth' -- Automatically set tab width etc.
@@ -339,7 +318,7 @@ require('nvim-treesitter.configs').setup {
     },
     move = {
       enable = true,
-      set_jumps = true, -- whether to set jumps in the jumplist
+      set_jumps = true, -- Whether to set jumps in the jumplist
       goto_next_start = {
         [']m'] = '@function.outer',
         [']]'] = '@class.outer',
@@ -403,10 +382,6 @@ capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 require('mason').setup()
 
 -- Enable the following language servers
---  Feel free to add/remove any LSPs that you want here. They will automatically be installed
---
---  Add any additional override configuration in the following tables. They will be passed to
---  the `settings` field of the server config. You must look up that documentation yourself
 local servers = {
   clangd = {},
   pyright = {},
@@ -437,7 +412,6 @@ local servers = {
   },
   docker_compose_language_service = {},
   dockerls = {},
-  marksman = {},
   jsonls = {},
 }
 
@@ -515,7 +489,7 @@ require('possession').setup {
     load = 'SLoad',
     delete = 'SDelete',
     list = 'SList',
-    }
+  }
 }
 
 -- The line beneath this is called `modeline`. See `:help modeline`
