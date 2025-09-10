@@ -38,70 +38,71 @@ vim.api.nvim_create_autocmd('BufWritePost', {
   pattern = vim.fn.expand '$MYVIMRC',
 })
 
--- Set highlight on search
-vim.o.hlsearch = false
-
--- Enable break indent
 vim.o.breakindent = true
-
--- Save undo history
-vim.o.undofile = true
-
--- Case insensitive searching UNLESS /C or capital in search
+vim.o.completeopt = 'menuone,noselect'
+vim.o.hlsearch = false
 vim.o.ignorecase = true
 vim.o.smartcase = true
+vim.o.mouse = 'a'
+vim.o.swapfile = false
+vim.o.undofile = true
 
--- Decrease update time
+vim.wo.number = true
+vim.wo.relativenumber = true
+
 vim.o.updatetime = 250
 vim.wo.signcolumn = 'yes'
 
+vim.o.winborder = 'rounded'
+vim.o.termguicolors = true
+vim.cmd("colorscheme kanagawa")
+
 vim.g.blamer_enabled = true
 
--- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menuone,noselect'
-
--- [[ Basic Keymaps ]]
--- Set <space> as the leader key
--- See `:help mapleader`
---  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
+--  Setting leader must happen before plugins are required (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
--- Keymaps for better default experience
--- See `:help vim.keymap.set()`
-vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
+local set_key = vim.keymap.set
 
--- Remap for dealing with word wrap
-vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+-- Better default experience
+set_key({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
--- Remap for jumping to start and end of lines
-vim.keymap.set({ 'n', 'v' }, 'H', '^')
-vim.keymap.set({ 'n', 'v' }, 'L', '$')
+-- Quick write and close
+set_key('n', '<leader>w', ':write<CR>')
+set_key('n', '<leader>q', ':quit<CR>')
 
--- Remap for select all
-vim.keymap.set('n', '<C-a>', 'gg<S-v>G')
+-- Dealing with word wrap
+set_key('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+set_key('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
--- Remap for splitting buffers
-vim.keymap.set('n', 'ss', ':sp<Return>')
-vim.keymap.set('n', 'sv', ':vsp<Return>')
+-- Jumping to start and end of lines
+set_key({ 'n', 'v' }, 'H', '^')
+set_key({ 'n', 'v' }, 'L', '$')
 
--- Remap for split navigation
-vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { noremap = false })
-vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { noremap = false })
-vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { noremap = false })
-vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { noremap = false })
+-- Select all
+set_key('n', '<C-a>', 'gg<S-v>G')
 
--- Remap for tab navigation
-vim.keymap.set('n', '<leader>h', 'gT')
-vim.keymap.set('n', '<leader>l', 'gt')
+-- Splitting buffers
+set_key('n', 'ss', ':sp<Return>')
+set_key('n', 'sv', ':vsp<Return>')
 
--- Remap for copying to system clipboard
-vim.keymap.set('v', '<leader>y', '"*y')
-vim.keymap.set('n', '<leader>y', '"*y')
-vim.keymap.set('n', '<leader>d', '"*d')
+-- Split navigation
+set_key('n', '<C-h>', '<C-w><C-h>', { noremap = false })
+set_key('n', '<C-j>', '<C-w><C-j>', { noremap = false })
+set_key('n', '<C-k>', '<C-w><C-k>', { noremap = false })
+set_key('n', '<C-l>', '<C-w><C-l>', { noremap = false })
 
--- [[ Highlight on yank ]]
+-- Tab navigation
+set_key('n', '<leader>h', 'gT')
+set_key('n', '<leader>l', 'gt')
+
+-- Copying to system clipboard
+set_key('v', '<leader>y', '"*y')
+set_key('n', '<leader>y', '"*y')
+set_key('n', '<leader>d', '"*d')
+
+-- Highlight on yank
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
 vim.api.nvim_create_autocmd('TextYankPost', {
