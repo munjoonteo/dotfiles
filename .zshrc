@@ -42,7 +42,6 @@ alias pn="pnpm"
 alias y="yarn"
 
 alias c="cd ~/Code"
-alias s="cd ~/Code/sdio"
 
 alias gityeet='git a . && git comamend && git psf'
 
@@ -58,20 +57,37 @@ eval $(/opt/homebrew/bin/brew shellenv)
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
-# Colours (Normal)
-# Black - 000000
-# Red - A6002E
-# Green - A8FF5F
-# Yellow - FFF053
-# Blue - 00BFBF
-# Magenta - B200B2
-# Cyan - 8799FF
-# White - BFBFBF
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+########## fzf ###########
+
 source <(fzf --zsh) # This sets up fzf key bindings and fuzzy completion
+
+export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git"
+
+_fzf_compgen_path() {
+  fd --hidden --exclude .git . "$1"
+}
+
+_fzf_compgen_dir() {
+  fd --type=d --hidden --exclude .git . "$1"
+}
+
+source ~/fzf-git.sh/fzf-git.sh
+
+######### zoxide #########
+
+eval "$(zoxide init zsh)"
+alias cd="z"
+
+######### thefuck ########
+
+eval $(thefuck --alias fk)
+alias fkyeah="thefuck --yeah"
+
+########## node ##########
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -79,13 +95,16 @@ export NVM_DIR="$HOME/.nvm"
 
 [[ $commands[kubectl] ]] && source <(kubectl completion zsh) # This enables shell command completion for kubectl
 
+# pnpm
+export PNPM_HOME="/Users/munjoonteo/Library/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+# pnpm end
+
+##########################
+
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/munjoonteo/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/munjoonteo/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/munjoonteo/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/munjoonteo/google-cloud-sdk/completion.zsh.inc'; fi
 
-# pnpm
-export PNPM_HOME="/Users/munjoonteo/Library/pnpm"
-export PATH="$PNPM_HOME:$PATH"
-# pnpm end

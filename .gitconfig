@@ -60,13 +60,21 @@
 	gpgsign = true
 [core]
 	editor = vim
+	pager = delta
 [credential]
 	helper = store
 [format]
 	pretty = oneline
 [init]
 	defaultBranch = main
+[interactive]
+	diffFilter = delta --color-only
 [pull]
 	rebase = true
 [push]
 	autoSetupRemote = true
+
+# Delta Plugin (better git diffs with fzf)
+[delta]
+	navigate = true # move between diff sections with n/N
+    	side-by-side = true

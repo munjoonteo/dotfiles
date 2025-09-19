@@ -1,0 +1,3 @@
+[submodule "fzf-git.sh"]
+	path = fzf-git.sh
+	url = https://github.com/junegunn/fzf-git.sh.git
