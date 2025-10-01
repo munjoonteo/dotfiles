@@ -79,10 +79,8 @@ set_key("n", "<leader>f", vim.lsp.buf.format, { desc = "Format file" })
 set_key("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
 set_key("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
 set_key("n", "<leader>e", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
-set_key("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
 
-
--- [[ Highlight on yank ]]
+-- Highlight on yank 
 local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
 vim.api.nvim_create_autocmd("TextYankPost", {
   callback = function()
@@ -372,6 +370,15 @@ require("lazy").setup({
     },
     { "apzelos/blamer.nvim", event = "BufReadPre" },
     { "gbprod/cutlass.nvim", event = "BufReadPre", opts = { cut_key = "x" } },
+    {
+      "iamcco/markdown-preview.nvim",
+      cmd =  { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+      build = "cd app && npm install",
+      ft = { "markdown" },
+      init = function()
+        vim.g.mkdp_filetypes = { "markdown" }
+      end,
+    },
     {
       "jedrzejboczar/possession.nvim",
       dependencies = { "nvim-lua/plenary.nvim" },

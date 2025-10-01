@@ -14,6 +14,9 @@
 	untracked = yellow bold
 [alias]
 	a = add
+	bi = bisect
+	bib = bisect bad
+	big = bisect good
 	br = branch
 	com = commit -m
 	comnv = commit --no-verify -m
@@ -36,6 +39,8 @@
 	plom = pull origin main
 	ps = push
 	psf = push --force
+	psfnv = push --force --no-verify
+	psnv = push --no-verify
 	psuo = push -u origin
 	r = rebase
 	ri = rebase -i
@@ -44,6 +49,10 @@
 	ri4 = rebase -i HEAD~4
 	ri5 = rebase -i HEAD~5
 	ri6 = rebase -i HEAD~6
+	ri7 = rebase -i HEAD~7
+	ri8 = rebase -i HEAD~8
+	ri9 = rebase -i HEAD~9
+	ri10 = rebase -i HEAD~10
 	rc = rebase --continue
 	ra = rebase --abort
 	rs = restore
