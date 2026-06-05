@@ -80,7 +80,7 @@ set_key("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic
 set_key("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
 set_key("n", "<leader>e", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
 
--- Highlight on yank 
+-- Highlight on yank
 local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
 vim.api.nvim_create_autocmd("TextYankPost", {
   callback = function()
@@ -258,6 +258,12 @@ require("lazy").setup({
               },
             },
           },
+          file_ignore_patterns = {
+            -- "test",
+            -- "%.test%.",
+            -- "%.spec%.",
+            -- "__tests__",
+          },
           extensions = {
             file_browser = {
               grouped = true,
@@ -372,7 +378,7 @@ require("lazy").setup({
     { "gbprod/cutlass.nvim", event = "BufReadPre", opts = { cut_key = "x" } },
     {
       "iamcco/markdown-preview.nvim",
-      cmd =  { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+      cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
       build = "cd app && npm install",
       ft = { "markdown" },
       init = function()
