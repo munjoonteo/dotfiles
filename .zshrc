@@ -18,6 +18,9 @@ alias gityeet='git a . && git comamend && git psf'
 alias soz='source ~/.zshrc'
 alias ta='tmux a'
 
+alias p='git diff --name-only --diff-filter=ACM HEAD | xargs -r prettier --write'
+alias ph='git show HEAD --name-only | sed '1d' | xargs -r prettier --write'
+
 # Helper functions
 mkcd()
 {
@@ -72,11 +75,6 @@ bindkey '^G' fzf-git-widget
 # Ctrl-gs - stashes
 # Ctrl-gl - reflogs
 
-######### zoxide #########
-
-eval "$(zoxide init zsh)"
-alias cd="z"
-
 ######### thefuck ########
 
 eval $(thefuck --alias fk)
@@ -95,3 +93,7 @@ alias k="kubectl"
 alias kx="kubectx"
 alias kns="kubens"
 
+######### zoxide #########
+
+eval "$(zoxide init zsh)"
+alias cd="z"
