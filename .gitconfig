@@ -33,7 +33,7 @@
 	f = fetch
 	fp = fetch --prune
 	chk = checkout
-	lg = log --oneline
+	lg = log --graph --pretty=format:'%C(yellow)%h%Creset %C(cyan)%ad%Creset %s %C(bold blue)<%an>%Creset%C(auto)%d%Creset' --date=relative --abbrev-commit
 	newb = switch -c
 	pl = pull
 	plom = pull origin main
@@ -82,6 +82,11 @@
 	rebase = true
 [push]
 	autoSetupRemote = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
 
 # Delta Plugin (better git diffs with fzf)
 [delta]

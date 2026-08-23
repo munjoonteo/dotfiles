@@ -31,6 +31,9 @@ mkcd()
 # Setup brew (M1 Mac)
 eval $(/opt/homebrew/bin/brew shellenv)
 
+# Setup rust
+export PATH="$(brew --prefix rustup)/bin:$PATH"
+
 ######### theme ##########
 
 source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme

@@ -12,6 +12,7 @@ ncurses \
 powerlevel10k \
 pv \
 ripgrep \
+rustup \
 thefuck \
 uv \
 zoxide \
